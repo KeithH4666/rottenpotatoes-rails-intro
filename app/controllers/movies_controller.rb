@@ -22,6 +22,9 @@ class MoviesController < ApplicationController
       @movies = Movie.all
     end
     
+    params[:ratings].nil? ? @t_param = @all_ratings : @t_param = params[:ratings].keys
+    @movies = Movie.where(rating: @t_param).order(@sort)
+    
     # Needed for checkboxes
     @all_ratings = ['G','PG','PG-13','R']
   end
