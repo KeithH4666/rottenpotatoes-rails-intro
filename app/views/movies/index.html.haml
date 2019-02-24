@@ -1,11 +1,12 @@
+-# The table headers
 %table#movies
   %thead
     %tr
-      %th= link_to "Movie Title"
-      %th{:class => ('hilite' if @sort == 'title')}= link_to "Movie Title", movies_path(:sort=>'title')
-      %th= link_to "Rating"
-      %th Release Date
+      %th{:class => ('hilite' if @sort == 'title')}= link_to "Movie Title", movies_path(:sort=>'title'), id: "title_header"
+      %th Rating
+      %th{:class => ('hilite' if @sort == 'release_date')}= link_to "Release Date", movies_path(:sort=>'release_date'), id: "release_date_header"
       %th More Info
+  %tbody
   %tbody
     - @movies.each do |movie|
       %tr
@@ -13,4 +14,5 @@
         %td= movie.rating
         %td= movie.release_date
         %td= link_to "More about #{movie.title}", movie_path(movie)
+
 = link_to 'Add new movie', new_movie_path
