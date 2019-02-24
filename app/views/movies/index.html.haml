@@ -2,6 +2,7 @@
 %table#movies
   %thead
     %tr
+      %div
       = form_tag movies_path, :method => :get do
         Include:
         - @all_ratings.each do |rating|
