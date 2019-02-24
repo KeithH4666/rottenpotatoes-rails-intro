@@ -11,6 +11,7 @@ class MoviesController < ApplicationController
   end
 
   def index
+    ## Part 1 for sorting by date and movie
     @sort = params[:sort]
     @all_ratings = Movie.pluck(:rating).uniq
     if @sort == 'title'
@@ -20,6 +21,8 @@ class MoviesController < ApplicationController
     else
       @movies = Movie.all
     end
+    
+    # Needed for checkboxes
     @all_ratings = ['G','PG','PG-13','R']
   end
 
