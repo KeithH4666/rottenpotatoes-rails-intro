@@ -7,7 +7,7 @@
         Include:
         - @all_ratings.each do |rating|
           = rating
-          = check_box_tag "ratings[#{rating}]"
+          = check_box_tag "ratings[#{rating}]", value='', checked="true"
         = submit_tag 'Refresh'
         
       %th{:class => ('hilite' if @sort == 'title')}= link_to "Movie Title", movies_path(:sort=>'title'), id: "title_header"
