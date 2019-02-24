@@ -11,10 +11,11 @@ class MoviesController < ApplicationController
   end
 
   def index
-    if params[:sort]
-      @movies = Movie.order(params[:sort])
-    else
-      @movies = Movie.all
+    @movies = Movie.all
+    
+    @sort = params[:sort] ## Sort the movies based on the title.
+    if @sort == 'title'
+      @movies = Movie.order("title ASC")
     end
     @all_ratings = ['G','PG','PG-13','R']
   end
