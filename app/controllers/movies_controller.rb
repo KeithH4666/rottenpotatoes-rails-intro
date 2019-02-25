@@ -27,11 +27,27 @@ class MoviesController < ApplicationController
     @movies = Movie.where(rating: @t_param).order(@sort)
     
     # Save using session
-    session[:ratings] = session[:ratings] || {'G'=>'','PG'=>'','PG-13'=>'','R'=>''}
-    @t_param = params[:ratings] || session[:ratings]  
-    session[:sort] = @sort
-    session[:ratings] = @t_param
-    @movies = Movie.where(rating: session[:ratings].keys).order(session[:sort])
+    session[:sort] = params[:sort] if params[:sort]
+    session[:ratings] = params[:ratings] if params[:ratings] || params[:commit] == 'Refresh'
+
+    if (!params[:sort] && !params[:ratings]) && (session[:sort] && session[:ratings])
+      flash.keep
+      return redirect_to movies_path(sort: session[:sort], ratings: session[:ratings])
+    
+    elsif !params[:sort] && session[:sort]
+      flash.keep
+      return redirect_to movies_path(sort: session[:sort], ratings: params[:ratings])
+    
+    elsif !params[:ratings] && session[:ratings]
+      flash.keep
+      return redirect_to movies_path(sort: params[:sort], ratings: session[:ratings])
+    end
+  end
+    #session[:ratings] = session[:ratings] || {'G'=>'','PG'=>'','PG-13'=>'','R'=>''}
+    #@t_param = params[:ratings] || session[:ratings]  
+    #session[:sort] = @sort
+    #session[:ratings] = @t_param
+    #@movies = Movie.where(rating: session[:ratings].keys).order(session[:sort])
   end
 
   def new
