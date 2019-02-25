@@ -11,15 +11,17 @@ class MoviesController < ApplicationController
   end
 
   def index
+    @movies = Movie.all
+    @all_ratings = Movie.ratings
     ## Part 1 for sorting by date and movie
+    
     @sort = params[:sort]
-    @all_ratings = Movie.pluck(:rating).uniq
     if @sort == 'title'
-      @movies = Movie.order("title ASC")
+    @movies = Movie.order("title ASC")
     elsif @sort == 'release_date'
-      @movies = Movie.order("release_date ASC");
+    @movies = Movie.order("release_date ASC")
     else
-      @movies = Movie.all
+    @movies = Movie.all
     end
     
     
